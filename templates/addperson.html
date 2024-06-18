@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Book details{% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname"
+                   placeholder="firstname">
+            </input>
+        </p>
+
+        <p>
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname"
+                placeholder="lastname">
+            </input>
+        </p>
+
+        <p>
+            <label for="age">AGE</label>
+            <input type="number" name="age"
+                placeholder="age">
+            </input>
+        </p>
+
+        <p>
+            <label for="phonenumber">Phone Number</label>
+            <input type="number" name="phonenumber"
+                placeholder="phonenumber">
+            </input>
+        </p>
+        
+        <p>
+            <label for="address">Address</label>
+            <input type="text" name="address"
+                placeholder="address">
+            </input>
+        </p>    
+        
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+    </form>
+{% endblock %}
