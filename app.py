@@ -13,6 +13,15 @@ def get_db_connection():
                             password='postgres')
     return conn
 
+
+
+@app.route('/home/')
+def home():
+    return render_template('home.html')
+
+
+
+
 @app.route('/getallpersons/')
 def index():
     conn = get_db_connection()
@@ -22,6 +31,20 @@ def index():
     cur.close()
     conn.close()
     return render_template('index.html', names=names)
+
+
+@app.route('/')
+def main():
+    return render_template('mainpage.html')
+
+
+
+@app.route('/login/')
+def login():
+    return render_template('login.html')
+
+
+
 
 
 @app.route('/addperson/', methods=('GET', 'POST'))
