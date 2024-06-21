@@ -4,11 +4,7 @@
 
 {% block content %}
 
-
-
-
 <body>
-
     <nav>
         <h1>Login Username </h1>
     </nav>    
@@ -17,7 +13,22 @@
         <h1>Password </h1>
     </nav>
 
+    <button>
+    <nav>
+        <a href="{{ url_for('home') }}">Login</a>
+    </nav>
+    </button>
+    
+    <h2>Dont't have an account ? Register now</h2>
+    <nav>
+        <a href="{{ url_for('register') }}">Register</a>
+    </nav>
+
 </body>
+
+
+
+
 
 {% endblock %}
 

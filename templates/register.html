@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <nav>
+        <h1>Register</h1>
+    </nav>    
+
+    <form method="post">
+
+        <p>
+            <label for="username">username</label>
+            <input type="text" name="username"
+                placeholder="username">
+            </input>
+        </p>
+
+        <p>
+            <label for="password">password</label>
+            <input type="text" password="password"
+                placeholder="password">
+            </input>
+        </p>
+
+        <p>
+            <label for="password">Reenter password</label>
+            <input type="text" password="password"
+                placeholder="password">
+            </input>
+        </p>
+
+        <p>
+            <label for="phonenumber">Phone Number</label>
+            <input type="number" name="phonenumber"
+                placeholder="phonenumber">
+            </input>
+        </p>
+                
+        <p>
+            <button type="submit">Register</button>
+        </p>
+    </form>
+</body>
+
+{% endblock %}
