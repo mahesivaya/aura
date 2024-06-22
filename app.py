@@ -7,73 +7,77 @@ from flask_login import UserMixin
 from sqlalchemy import ForeignKey, create_engine, Column, Integer, String, DateTime, Text
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
-# from flask_wtf import wtforms
-# from wtforms import StringField, PasswordField, SubmitField
-# from wtforms.validators import InputRequired, Length, ValidationError
-
-
 
 app = Flask(__name__)
-# db = SQLAlchemy(app)
 
-# user = 'postgres'
-# password = 'postgres'
-# host = 'localhost'
-# port = '5432'
-# database = 'postgres'
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/postgres"
 app.config['SECRET_KEY'] = 'secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 
 db = SQLAlchemy(app)
-# from sqlalchemy import create_engine
-# # for postgreSQL database credentials can be written as 
-# user = 'postgres'
-# password = 'postgres'
-# host = 'localhost'
-# port = '5432'
-# database = 'postgres'
-# # for creating connection string
-# url = f"postgresql://{user}:{password}@{host}:{port}/{database}"
-# # SQLAlchemy engine
-# engine = create_engine(url)
-# # you can test if the connection is made or not
-# try:
-#     with engine.connect() as url:
-#         print('Successfully connected to the PostgreSQL database')
-# except Exception as ex:
-#     print(f'Sorry failed to connect: {ex}')
-
-# Base = declarative_base()
-
-# # class Article(Base):
-# #     __tablename__ = 'articles'
-# #     id = Column(Integer(), primary_key=True)
-# #     slug = Column(String(100), nullable=False, unique=True)
-# #     title = Column(String(100), nullable=False)
-# #     created_on = Column(DateTime(), default=datetime.now)
-# #     updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
-# #     content = Column(Text)
-# #     author_id = Column(Integer(), ForeignKey('authors.id'))
 
 
-# class User(Base):
-#     __tablename__ = 'users'
+class Another(db.Model):
+    ###User model### 
+    __tablename__ = 'another'
+    #unique user id 
+    id = db.Column(db.Integer, primary_key=True)
+    #Each field is specified as a class attribute, 
+    #and each attribute maps to a database column.
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(25), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    #make a relationship with 'Posts' model 
+    user_blog = db.relationship('Posts', backref='list', lazy=True)
+
+    def __init__(self, username, email, password):
+        self.username = username 
+        self.email = email
+        self.password = password
+        
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+from sqlalchemy import create_engine
+# for postgreSQL database credentials can be written as 
+user = 'postgres'
+password = 'postgres'
+host = 'localhost'
+port = '5432'
+database = 'postgres'
+# for creating connection string
+url = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+# SQLAlchemy engine
+engine = create_engine(url)
+# you can test if the connection is made or not
+try:
+    with engine.connect() as url:
+        print('Successfully connected to the PostgreSQL database')
+except Exception as ex:
+    print(f'Sorry failed to connect: {ex}')
+
+Base = declarative_base()
+
+# class Article(Base):
+#     __tablename__ = 'articles'
 #     id = Column(Integer(), primary_key=True)
-#     username = Column(String(20), nullable=False)
-#     password = Column(String(80), nullable=False)
+#     slug = Column(String(100), nullable=False, unique=True)
+#     title = Column(String(100), nullable=False)
+#     created_on = Column(DateTime(), default=datetime.now)
+#     updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
+#     content = Column(Text)
+#     author_id = Column(Integer(), ForeignKey('authors.id'))
+
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer(), primary_key=True)
+    username = Column(String(20), nullable=False)
+    password = Column(String(80), nullable=False)
 
 
 
-# class RegisterForm(FlaskForm):
-#     username = Column(StringField, ValidationError)
-
-
-
-
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 
 def get_db_connection():
@@ -104,8 +108,6 @@ def login():
 @app.route('/home/')
 def home():
     return render_template('home.html')
-
-
 
 
 @app.route('/getallpersons/')
@@ -140,7 +142,6 @@ def addpeople():
         return redirect(url_for('index'))
         
     return render_template('addperson.html')
-
 
 
 
